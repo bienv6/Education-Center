@@ -29,8 +29,20 @@ public class StudentController {
     return studentService.addStudent(student);
   }
 
-  @RequestMapping("/?gender={gender}")
-  List<Student> getStudentsByGender(@PathVariable Gender gender){
+  @GetMapping(value = "", params = "gender")
+  List<Student> getStudentsByGender(@PathParam("gender") Gender gender){
     return studentService.getStudentsByGender(gender);
   }
+
+  @PutMapping("/{id}")
+  public Student updateStudent(@PathVariable long id, @RequestBody Student student){
+     return studentService.updateStudent(id,student);
+  }
+
+  @DeleteMapping("/{id}")
+  public void deleteStudent(@PathVariable long id){
+    studentService.deleteStudent(id);
+  }
+
+
 }

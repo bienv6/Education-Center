@@ -1,6 +1,7 @@
 package com.example.demo.student;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
@@ -16,7 +17,8 @@ import javax.persistence.*;
 @Entity
 public class Student {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq")
+  @GenericGenerator(name = "seq", strategy = "increment")
   private Long id;
   private String name;
   private String email;
