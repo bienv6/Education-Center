@@ -1,7 +1,6 @@
 package com.example.demo.student;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.web.JsonPath;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -25,24 +24,27 @@ public class StudentController {
   }
 
   @PostMapping
-  public Student addStudent(@RequestBody Student student){
+  public Student addStudent(@RequestBody Student student) {
     return studentService.addStudent(student);
   }
 
-  @GetMapping(value = "", params = "gender")
-  List<Student> getStudentsByGender(@PathParam("gender") Gender gender){
+ /* @GetMapping(value = "", params = "gender")
+  List<Student> getStudentsByGender(@PathParam("gender") Gender gender) {
     return studentService.getStudentsByGender(gender);
+  }*/
+
+  @GetMapping(value = "", params = "email")
+  Student getStudentByEmail(@PathParam("email") String email) {
+    return studentService.getStudentByEmail(email);
   }
 
   @PutMapping("/{id}")
-  public Student updateStudent(@PathVariable long id, @RequestBody Student student){
-     return studentService.updateStudent(id,student);
+  public Student updateStudent(@PathVariable long id, @RequestBody Student student) {
+    return studentService.updateStudent(id, student);
   }
 
   @DeleteMapping("/{id}")
-  public void deleteStudent(@PathVariable long id){
+  public void deleteStudent(@PathVariable long id) {
     studentService.deleteStudent(id);
   }
-
-
 }

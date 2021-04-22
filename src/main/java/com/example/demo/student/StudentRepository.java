@@ -3,8 +3,6 @@ package com.example.demo.student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
@@ -12,5 +10,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
   Student findStudentByEmail(String email);
 
-  List<Student> findStudentByGender(Gender gender);
+  /* @Query("" + "Select Student " + "FROM Student s " + "WHERE s.gender = ?1")
+    List<Student> findStudentByGender(Gender gender);
+  }*/
 }

@@ -15,7 +15,7 @@ import {
 import StudentDrawerForm from "./StudentDrawerForm";
 
 import './App.css';
-import {successNotification} from "./Notification";
+import {errorNotification, successNotification} from "./Notification";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -35,12 +35,18 @@ function App() {
             .then(data => {
                 console.log(data);
                 setStudents(data);
-                setFetching(false);
-            })
+                setFetching(false)
 
-    const removeStudent = ( studentId, callbackFunc ) => {
+            }).catch(err => {
+            err.response.json().then(res => {
+                console.log(res);
+                errorNotification("there was an issue", `${res.message} [${res.status}]`)
+            });
+        }).finally(() => setFetching(false));
+
+    const removeStudent = (studentId, callbackFunc) => {
         deleteStudent(studentId).then(() => {
-            successNotification("Student Deleted", `student with ID ${studentId} was deleted ` );
+            successNotification("Student Deleted", `student with ID ${studentId} was deleted `);
             callbackFunc();
         })
     }
@@ -52,14 +58,15 @@ function App() {
 
     const TheAvatar = ({name}) => {
         let trim = name.split(" ");
-        if(trim[1]){
-        return <Avatar>
-            {`${trim[0].charAt(0)}${trim[1].charAt(0)}`}
-        </Avatar>}
-        else{
+        if (trim[1]) {
             return <Avatar>
-            {`${trim[0].charAt(0)}${trim[0].charAt(trim[0].length -1)}`}
-        </Avatar>}
+                {`${trim[0].charAt(0)}${trim[1].charAt(0)}`}
+            </Avatar>
+        } else {
+            return <Avatar>
+                {`${trim[0].charAt(0)}${trim[0].charAt(trim[0].length - 1)}`}
+            </Avatar>
+        }
 
     }
 
@@ -116,8 +123,21 @@ function App() {
             return <Spin indicator={antIcon}/>
         }
         if (students.length <= 0) {
-            return <Empty/>;
+            return <>
+                <Button
+                    onClick={() => setShowDrawer(!showDrawer)}
+                    type="primary" shape="round" icon={<PlusOutlined/>} size="small">
+                    Add New Student
+                </Button>
+                <StudentDrawerForm
+                    showDrawer={showDrawer}
+                    setShowDrawer={setShowDrawer}
+                    fetchStudents={fetchStudents}
+                />
+                <Empty/>
+            </>
         }
+
         return <>
             <StudentDrawerForm
                 showDrawer={showDrawer}

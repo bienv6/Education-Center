@@ -1,5 +1,7 @@
 package com.example.demo.student;
 
+import com.example.demo.Exceptions.BadRequestException;
+import com.example.demo.Exceptions.StudentNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,34 +20,46 @@ public class StudentService {
   }
 
   public Student addStudent(@PathVariable Student student) {
+    Student student1 = studentRepo.findStudentByEmail(student.getEmail());
+    if (student1 != null)
+      throw new BadRequestException("Student with email " + student.getEmail() + " already exist");
     return studentRepo.save(student);
   }
 
   public Student getStudentById(long id) {
-    return studentRepo.findStudentById(id);
+    Student student = studentRepo.findStudentById(id);
+    if (student == null)
+      throw new StudentNotFoundException(" No student with id " + id + " was found");
+    return student;
   }
 
   public Student getStudentByEmail(String email) {
-    return studentRepo.findStudentByEmail(email);
+    Student student = studentRepo.findStudentByEmail(email);
+    if (student == null)
+      throw new StudentNotFoundException("No student with email " + email + " exist");
+    return student;
   }
 
-  public void deleteStudent(long id) { studentRepo.deleteById(id);}
-
-  public List<Student> getStudentsByGender(Gender gender) { return studentRepo.findStudentByGender(gender);
+  public void deleteStudent(long id) {
+    Student student = studentRepo.findStudentById(id);
+    if (student == null)
+      throw new StudentNotFoundException(" No student with id " + id + " was found");
+    studentRepo.deleteById(id);
   }
+
+  /*public List<Student> getStudentsByGender(Gender gender) {
+    return studentRepo.findStudentByGender(gender);
+  }*/
 
   public Student updateStudent(long id, Student student) {
-    Student student1;
     Optional<Student> optionalStudent = studentRepo.findById(id);
-    if (optionalStudent.isPresent()) {
-      student1 = optionalStudent.get();
-      student1.setEmail(student.getEmail());
-      student1.setName(student.getName());
-      student1.setGender(student.getGender());
-      return studentRepo.save(student1);
+    if (optionalStudent.isEmpty()) {
+      throw new StudentNotFoundException(" No student with id " + id + " was found");
     }
-    return null;
+    Student student1 = optionalStudent.get();
+    student1.setEmail(student.getEmail());
+    student1.setName(student.getName());
+    student1.setGender(student.getGender());
+    return studentRepo.save(student1);
   }
-
-
 }

@@ -20,7 +20,8 @@ export const addNewStudent = student => {
         headers: {'Content-Type': 'application/json'},
         method: 'POST',
         body: JSON.stringify(student)
-    });
+    }).then(checkStatus)
+
 }
 
 export const deleteStudent = id => {
