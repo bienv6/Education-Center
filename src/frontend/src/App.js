@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {deleteStudent, getAllStudents} from "./client";
-import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from 'antd';
+import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Image, Tag} from 'antd';
 
 
 import {
@@ -205,7 +205,18 @@ function App() {
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>By BienCorp</Footer>
+            <Footer style={{textAlign: 'center'}}>
+                <span>
+                <Image
+                width={45}
+                height={45}
+                src={"https://user-images.githubusercontent.com/31675961/116484588-5fee3580-a857-11eb-9667-ae2f9d537be8.png"}>
+                    </Image>
+                    By BienCorp
+                    </span>
+
+
+                </Footer>
         </Layout>
     </Layout>
 }
