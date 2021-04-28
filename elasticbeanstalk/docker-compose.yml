@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   backend:
-    image: "vermdev/education_center:latest"
+    image: "vermdev/react-education-center:3"
     ports:
       - "80:8080"
     restart: "always"
