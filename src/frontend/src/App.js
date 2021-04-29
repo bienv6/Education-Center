@@ -206,14 +206,16 @@ function App() {
                 </div>
             </Content>
             <Footer style={{textAlign: 'center'}}>
-                <span>
+
                 <Image
                 width={45}
                 height={45}
                 src={"https://user-images.githubusercontent.com/31675961/116484588-5fee3580-a857-11eb-9667-ae2f9d537be8.png"}>
+                    <span>  By BienCorp</span>
                     </Image>
-                    By BienCorp
-                    </span>
+
+
+
 
 
                 </Footer>
