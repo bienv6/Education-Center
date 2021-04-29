@@ -18,15 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:8.0.23
+        image: mysql:latest
         env:
           MYSQL_USER: root
           MYSQL_PASSWORD: 2apples2
-          MYSQL_DATABASE: education-center
+          MYSQL_DATABASE: education_center
           MYSQL_ROOT_PASSWORD: 2apples2
         ports:
           - 3307:3306
-          options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+          options: --health-cmd "mysqladmin ping" --health-interval=5s --health-timeout=5s --health-retries=5
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1.4.3
