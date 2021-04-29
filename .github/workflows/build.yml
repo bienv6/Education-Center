@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql/mysql-server:5.7
         env:
           MYSQL_DATABASE: education-center
           MYSQL_USER: root
           MYSQL_PASSWORD: 2apples2
-          MYSQL_ROOT_PASSWORD: 2apples2
+
         ports:
           - 33307:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
