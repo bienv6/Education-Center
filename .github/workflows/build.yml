@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      mysql:
         image: mysql:8.0.23
         env:
           MYSQL_DB: ${{ env.MYSQL_DB }}
