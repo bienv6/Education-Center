@@ -20,6 +20,7 @@ jobs:
           MYSQL_DATABASE: education-center
           MYSQL_USER: root
           MYSQL_PASSWORD: 2apples2
+          MYSQL_ROOT_PASWORD: 2apples2
 
         ports:
           - 33307:3306
