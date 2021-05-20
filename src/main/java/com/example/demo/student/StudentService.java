@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,9 @@ public class StudentService {
   private final StudentRepository studentRepo;
 
   public List<Student> getAllStudents() {
-    return studentRepo.findAll();
+
+   return new ArrayList<>(studentRepo.findAll());
+
   }
 
   public Student addStudent(@PathVariable Student student) {
