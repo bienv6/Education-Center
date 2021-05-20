@@ -17,8 +17,8 @@ jobs:
       mysql:
         image: mysql/mysql-server:8.0.23
         env:
-          MYSQL_DATABASE: education-center
-          MYSQL_USER: bienv6
+          MYSQL_DATABASE: education_center
+          MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: 2apples2
         ports:
           - 3307:3306
