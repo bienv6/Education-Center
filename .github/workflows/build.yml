@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ vernBranch ]
 
   workflow_dispatch:
 
@@ -17,14 +17,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      mysql:
         image: mysql:8.0.23
         env:
           MYSQL_DB: ${{ env.MYSQL_DB }}
           MYSQL_USER: ${{ env.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
         ports:
-          - 3307:3306
+          - 3306:3306
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v2
